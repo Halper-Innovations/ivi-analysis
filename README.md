@@ -15,6 +15,7 @@
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-0E6B5C"></a>
   <img alt="Python 3.11+" src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white">
   <img alt="Data: SEC EDGAR" src="https://img.shields.io/badge/data-SEC%20EDGAR-0B1F3A">
+  <a href="docs/mcp.md"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-5EEAD4"></a>
   <a href="https://github.com/astral-sh/ruff"><img alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>
 </p>
 
@@ -42,6 +43,8 @@ free from SEC EDGAR, prices free from Yahoo Finance.
   beside the number. One-off swings in cash flow are smoothed both ways; genuine declines are not.
 - **Fails loud, never quiet.** When a value can't be established from the filings, you get an
   explicit `UNKNOWN` with a reason code — never a silent fallback or a made-up zero.
+- **SEC MCP server.** `ivi-mcp` gives Claude Desktop, Claude Code or any MCP client direct,
+  cited access to company lookups, filings, filing text and financials. [Docs →](docs/mcp.md)
 - **Web UI.** A local React app for companies, watchlists, coverage and events (`ivi web`).
 - **Optional AI analyst.** With an Anthropic or OpenAI key, research runs read filings, adjudicate
   evidence and write analyst memos with a conviction grade — always as an input, never a gate.
@@ -123,8 +126,21 @@ and a file other users can read is skipped with a warning (`chmod 600 .env`). Th
 | `ivi watchlist ...` | Maintain a persistent watchlist with buy targets and triggers. |
 | `ivi events ...` | Detect corporate events (spin-offs, bankruptcies, busted IPOs) from filings. |
 | `ivi universe ...` | Build and sweep a universe of SEC registrants. |
+| `ivi-mcp` | Run the SEC MCP server ([setup](docs/mcp.md)). |
 
 Run `ivi --help` for the full list.
+
+## MCP server
+
+```bash
+pip install -e '.[mcp]'
+claude mcp add ivi-analysis --env VOE_SEC_USER_AGENT="Your Name you@yourdomain.com" -- ivi-mcp
+```
+
+Then ask your assistant things like *"What did Coca-Cola report as 2018 revenue in its original
+10-K, and what does it say today?"* Six read-only tools cover company lookup, profiles, filing
+lists, filing text with section jumps, standardized financials (annual or quarterly, optionally
+as of a past date), and any raw XBRL concept. See [docs/mcp.md](docs/mcp.md).
 
 ## How it's built
 
@@ -138,6 +154,7 @@ app/
   events/      corporate-event detection from filings
   universe/    registrant census, scouting and sweeps
   web/         FastAPI read model serving the React UI in webui/
+  mcp_server/  the SEC MCP server
 ```
 
 ## Development

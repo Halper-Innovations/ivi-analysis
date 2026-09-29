@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Ryan Halper" }]
-keywords = ["sec", "edgar", "xbrl", "valuation", "dcf", "equity-research", "fundamentals", "llm"]
+keywords = ["sec", "edgar", "xbrl", "valuation", "dcf", "equity-research", "fundamentals", "llm", "mcp"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Financial and Insurance Industry",
@@ -41,6 +41,12 @@ dev = [
   "httpx>=0.28",
   "ruff>=0.6",
   "mypy>=1.11",
+  # The MCP server is covered by the default test lane.
+  "ivi-analysis[mcp]",
+]
+# MCP server (`ivi-mcp`). Built on mcp 2.x (where FastMCP became MCPServer); tested on 2.0.0 and 2.2.0.
+mcp = [
+  "mcp>=2.0,<3",
 ]
 
 [project.urls]
@@ -51,6 +57,7 @@ Issues = "https://github.com/Halper-Innovations/ivi-analysis/issues"
 [project.scripts]
 ivi = "app.cli:app"
 voe = "app.cli:app"
+ivi-mcp = "app.mcp_server.server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -1,0 +1,78 @@
+{
+ "cik": 21344,
+ "entityName": "COCA COLA CO",
+ "facts": {
+  "us-gaap": {
+   "Revenues": {
+    "label": "Revenues",
+    "description": "Amount of revenue recognized from goods sold, services rendered, insurance premiums, or other activities that constitute an earning process. Includes, but is not limited to, investment and interest income before deduction of interest expense when recognized as a component of revenue, and sales and trading gain (loss).",
+    "units": {
+     "USD": [
+      {
+       "start": "2016-01-01",
+       "end": "2016-12-31",
+       "val": 41863000000,
+       "accn": "0000021344-19-000014",
+       "fy": 2018,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2019-02-21"
+      },
+      {
+       "start": "2017-01-01",
+       "end": "2017-12-31",
+       "val": 35410000000,
+       "accn": "0000021344-19-000014",
+       "fy": 2018,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2019-02-21"
+      },
+      {
+       "start": "2017-01-01",
+       "end": "2017-12-31",
+       "val": 36212000000,
+       "accn": "0000021344-20-000006",
+       "fy": 2019,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2020-02-24",
+       "frame": "CY2017"
+      },
+      {
+       "start": "2018-01-01",
+       "end": "2018-12-31",
+       "val": 31856000000,
+       "accn": "0000021344-19-000014",
+       "fy": 2018,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2019-02-21"
+      },
+      {
+       "start": "2018-01-01",
+       "end": "2018-12-31",
+       "val": 34300000000,
+       "accn": "0000021344-20-000006",
+       "fy": 2019,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2020-02-24"
+      },
+      {
+       "start": "2018-01-01",
+       "end": "2018-12-31",
+       "val": 34300000000,
+       "accn": "0000021344-21-000008",
+       "fy": 2020,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2021-02-25",
+       "frame": "CY2018"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

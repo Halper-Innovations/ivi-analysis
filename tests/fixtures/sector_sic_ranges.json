@@ -1,0 +1,138 @@
+{
+  "enterprise_software": {
+    "label": "Enterprise Software",
+    "sic_ranges": ["7371", "7372", "7373", "7375", "7379"]
+  },
+  "industrial_tech": {
+    "label": "Industrial Tech",
+    "sic_ranges": ["3559-3569", "3570-3579", "3670", "3677-3679", "3690", "3810-3829", "3841-3851", "3669", "5045", "5065", "7381"]
+  },
+  "large_cap_financials": {
+    "label": "Large Cap Financials",
+    "sic_ranges": ["6020-6036", "6710-6726"]
+  },
+  "capital_markets": {
+    "label": "Capital Markets",
+    "sic_ranges": ["6111", "6162-6163", "6199", "6200-6221", "6282"]
+  },
+  "semiconductors": {
+    "label": "Semiconductors",
+    "sic_ranges": ["3672", "3674"]
+  },
+  "healthcare_pharma": {
+    "label": "Healthcare & Pharma",
+    "sic_ranges": ["2830-2836", "2860-2869", "3841-3845", "5912"]
+  },
+  "healthcare_services": {
+    "label": "Healthcare Services",
+    "sic_ranges": ["8000-8099"]
+  },
+  "consumer_staples": {
+    "label": "Consumer Staples",
+    "sic_ranges": ["100-999", "2000-2099", "2111", "2800-2819", "2840-2844", "700-799", "5150"]
+  },
+  "consumer_discretionary": {
+    "label": "Consumer Discretionary",
+    "sic_ranges": ["2211", "2221", "2273", "2300-2399", "2511", "3021", "3140", "3751", "3910", "3940-3949"]
+  },
+  "consumer_services": {
+    "label": "Consumer Services",
+    "sic_ranges": ["7200-7299"]
+  },
+  "energy": {
+    "label": "Energy",
+    "sic_ranges": ["1220-1221", "1311", "1381-1389", "2911", "4610", "5171-5172"]
+  },
+  "telecom": {
+    "label": "Telecommunications",
+    "sic_ranges": ["4810-4813", "4841", "4899"]
+  },
+  "payments_fintech": {
+    "label": "Payments & Financial Technology",
+    "sic_ranges": ["7389", "6141", "6153", "6159"]
+  },
+  "construction_machinery": {
+    "label": "Construction & Farm Machinery",
+    "sic_ranges": ["3523-3537"]
+  },
+  "metals_mining": {
+    "label": "Metals & Mining",
+    "sic_ranges": ["1000-1099", "1400-1499", "3310-3399"]
+  },
+  "aerospace_defense": {
+    "label": "Aerospace & Defense",
+    "sic_ranges": ["3720-3728", "3760-3769", "3812"]
+  },
+  "diversified_industrials": {
+    "label": "Diversified Industrials",
+    "sic_ranges": ["3411", "3420", "3433", "3490", "3540-3559", "3580-3599", "3600-3669", "3990", "5080"]
+  },
+  "building_products": {
+    "label": "Building Products & Materials",
+    "sic_ranges": ["2430", "3231", "3241", "3272", "5030-5031"]
+  },
+  "retail": {
+    "label": "Retail",
+    "sic_ranges": ["5200-5299", "5300-5399", "5400-5499", "5600-5699", "5700-5736", "5900-5999"]
+  },
+  "media_entertainment": {
+    "label": "Media & Entertainment",
+    "sic_ranges": ["2710-2741", "4810-4841", "7310-7311", "7800-7830", "7900-7999"]
+  },
+  "business_services": {
+    "label": "Business Services",
+    "sic_ranges": ["4955", "7320", "7330-7331", "7340-7359", "7363", "7380", "8711", "8742"]
+  },
+  "insurance": {
+    "label": "Insurance",
+    "sic_ranges": ["6311-6411"]
+  },
+  "reits": {
+    "label": "Real Estate Investment Trusts",
+    "sic_ranges": ["6500-6553", "6798"]
+  },
+  "biotech": {
+    "label": "Biotechnology",
+    "sic_ranges": ["2836", "8731"]
+  },
+  "medical_devices": {
+    "label": "Medical Devices & Equipment",
+    "sic_ranges": ["3841-3851", "5047"]
+  },
+  "automotive": {
+    "label": "Automotive",
+    "sic_ranges": ["3711-3716", "5010-5015", "5500-5531", "3714"]
+  },
+  "construction_services": {
+    "label": "Construction Services",
+    "sic_ranges": ["1500-1799"]
+  },
+  "education_services": {
+    "label": "Education Services",
+    "sic_ranges": ["8200-8299", "8351"]
+  },
+  "hospitality_gaming": {
+    "label": "Hospitality & Gaming",
+    "sic_ranges": ["7000-7011"]
+  },
+  "restaurants_food_service": {
+    "label": "Restaurants & Food Service",
+    "sic_ranges": ["5810", "5812", "5813"]
+  },
+  "transportation_logistics": {
+    "label": "Transportation & Logistics",
+    "sic_ranges": ["4011-4013", "4210-4231", "4400-4499", "4500-4522", "4581", "4731"]
+  },
+  "utilities": {
+    "label": "Utilities",
+    "sic_ranges": ["4911-4941"]
+  },
+  "chemicals": {
+    "label": "Chemicals",
+    "sic_ranges": ["2810-2829", "2851", "2860-2899", "3089", "5160"]
+  },
+  "internet_services": {
+    "label": "Internet Services & E-Commerce",
+    "sic_ranges": ["7370", "7374"]
+  }
+}

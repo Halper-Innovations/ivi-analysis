@@ -1,0 +1,9 @@
+{
+  "cik": "1234567",
+  "entityType": "operating",
+  "sic": "6798",
+  "sicDescription": "Real Estate Investment Trusts",
+  "name": "Example Realty Trust",
+  "tickers": ["EXRT"],
+  "filings": {"recent": {"accessionNumber": [], "form": [], "filingDate": [], "reportDate": [], "primaryDocument": []}}
+}

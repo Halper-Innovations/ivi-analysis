@@ -1,0 +1,76 @@
+{
+  "cik": "0000000001",
+  "entityName": "AAA Corp",
+  "facts": {
+    "dei": {
+      "EntityCommonStockSharesOutstanding": {
+        "units": {
+          "shares": [
+            {
+              "end": "2025-12-31",
+              "val": 1000,
+              "filed": "2026-01-20",
+              "form": "10-K"
+            },
+            {
+              "end": "2024-12-31",
+              "val": 950,
+              "filed": "2025-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      }
+    },
+    "us-gaap": {
+      "CommonStockSharesOutstanding": {
+        "units": {
+          "shares": [
+            {
+              "end": "2025-12-31",
+              "val": 990,
+              "filed": "2026-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      },
+      "NetCashProvidedByUsedInOperatingActivities": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 620.0,
+              "filed": "2026-01-20",
+              "form": "10-K"
+            },
+            {
+              "end": "2024-12-31",
+              "val": 580.0,
+              "filed": "2025-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      },
+      "PaymentsToAcquirePropertyPlantAndEquipment": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 120.0,
+              "filed": "2026-01-20",
+              "form": "10-K"
+            },
+            {
+              "end": "2024-12-31",
+              "val": 100.0,
+              "filed": "2025-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

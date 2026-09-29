@@ -1,0 +1,46 @@
+{
+  "status": "COMPLETED",
+  "final_verdict": "SELECTED",
+  "selected_ticker": "FIXR",
+  "confidence": "HIGH",
+  "tool_calls": [
+    {
+      "tool": "fixture_sector_comparison",
+      "evidence_ref_ids": [
+        "fixture-evidence-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "fixture-evidence-1",
+      "source_type": "committed_fixture"
+    }
+  ],
+  "candidate_selection": {
+    "loaded_tickers": [
+      "FIXR"
+    ],
+    "selected_tickers": [
+      "FIXR"
+    ]
+  },
+  "relative_ranking": [
+    {
+      "ticker": "FIXR",
+      "company_autonomy_verdict": "SELECTED",
+      "audit_status": "PASS",
+      "actionable": true
+    }
+  ],
+  "company_packets": [
+    {
+      "ticker": "FIXR"
+    }
+  ],
+  "selection_audit": {
+    "audit_status": "PASS",
+    "final_verdict_after_audit": "SELECTED",
+    "actionable": true
+  }
+}

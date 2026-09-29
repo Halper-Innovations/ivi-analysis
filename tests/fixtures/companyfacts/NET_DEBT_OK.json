@@ -1,0 +1,47 @@
+{
+  "cik": "0000000100",
+  "entityName": "NET DEBT OK INC",
+  "facts": {
+    "us-gaap": {
+      "DebtCurrent": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 80000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000000100-26-000001"
+            }
+          ]
+        }
+      },
+      "LongTermDebtNoncurrent": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 220000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000000100-26-000001"
+            }
+          ]
+        }
+      },
+      "CashAndCashEquivalentsAtCarryingValue": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 60000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000000100-26-000001"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

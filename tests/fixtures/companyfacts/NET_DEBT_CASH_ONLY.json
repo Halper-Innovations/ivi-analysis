@@ -1,0 +1,21 @@
+{
+  "cik": "0000000102",
+  "entityName": "NET DEBT CASH ONLY INC",
+  "facts": {
+    "us-gaap": {
+      "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 95000000.0,
+              "filed": "2026-01-23",
+              "form": "10-K",
+              "accn": "0000000102-26-000003"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

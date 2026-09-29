@@ -1,0 +1,118 @@
+/* ------------------------------------------------------- depth gauge --
+   The signature element. Hero gauges draw their shelves in, then drop the
+   price marker with one soft spring and a single ripple. Reduced motion
+   collapses everything to instant states (media query at the bottom). */
+
+.gauge-shelf-line {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 0;
+}
+
+.gauge-hero .gauge-shelf-line {
+  animation: shelf-draw 420ms ease-out both;
+  animation-delay: calc(var(--shelf-i, 0) * 90ms);
+}
+
+@keyframes shelf-draw {
+  from {
+    stroke-dashoffset: 300;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.gauge-hero .gauge-band {
+  transform-origin: left center;
+  transform-box: fill-box;
+  animation: band-settle 420ms ease-out both;
+  animation-delay: calc(var(--shelf-i, 0) * 90ms);
+}
+
+/* Animate only transform/opacity-multipliers the SVG attributes don't own:
+   the band's resting translucency lives in fill-opacity, so the keyframe's
+   opacity ramp ends at 1 and never overrides it. */
+@keyframes band-settle {
+  from {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.gauge-hero .gauge-price-group {
+  animation: marker-drop 700ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation-delay: 480ms;
+}
+
+@keyframes marker-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gauge-hero .gauge-ripple {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: ripple-once 900ms ease-out 1 both;
+  animation-delay: 960ms;
+}
+
+@keyframes ripple-once {
+  from {
+    opacity: 0.5;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+/* Nacre shimmer: the accent gradient sweeps slowly across the zone band,
+   only while price is submerged. Static gradient under reduced motion. */
+.gauge-zone-nacre {
+  animation: nacre-zone-sweep 7s linear infinite;
+}
+
+@keyframes nacre-zone-sweep {
+  from {
+    transform: translateX(-25%);
+  }
+  to {
+    transform: translateX(25%);
+  }
+}
+
+.gauge-tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  transform: translate(-50%, -120%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gauge-hero .gauge-shelf-line,
+  .gauge-hero .gauge-band,
+  .gauge-hero .gauge-price-group {
+    animation: none;
+  }
+  .gauge-hero .gauge-ripple {
+    animation: none;
+    opacity: 0;
+  }
+  .gauge-zone-nacre {
+    animation: none;
+  }
+}

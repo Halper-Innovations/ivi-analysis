@@ -1,0 +1,46 @@
+{
+  "cik": "0000000003",
+  "entityName": "CCC Ltd",
+  "facts": {
+    "dei": {
+      "EntityCommonStockSharesOutstanding": {
+        "units": {
+          "shares": [
+            {
+              "end": "2023-12-31",
+              "val": 1500,
+              "filed": "2024-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      }
+    },
+    "us-gaap": {
+      "NetCashProvidedByUsedInOperatingActivities": {
+        "units": {
+          "USD": [
+            {
+              "end": "2023-12-31",
+              "val": 300.0,
+              "filed": "2024-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      },
+      "PaymentsToAcquirePropertyPlantAndEquipment": {
+        "units": {
+          "USD": [
+            {
+              "end": "2023-12-31",
+              "val": 80.0,
+              "filed": "2024-01-20",
+              "form": "10-K"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

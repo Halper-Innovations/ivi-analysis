@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 72" width="340" height="72" role="img" aria-labelledby="t">
+  <title id="t">IVI Analysis</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1F3A"/>
+      <stop offset="1" stop-color="#0E6B5C"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(4 4)">
+    <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+    <rect x="11" y="15" width="8" height="34" rx="2.5" fill="#F8FAFC"/>
+    <rect x="45" y="15" width="8" height="34" rx="2.5" fill="#F8FAFC"/>
+    <polyline points="24.5,18.5 32,45.5 39.5,18.5" fill="none" stroke="#5EEAD4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="86" y="49" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="38" letter-spacing="0.5">
+    <tspan font-weight="800" fill="#0B1F3A">IVI</tspan><tspan dx="10" font-weight="400" fill="#0E6B5C">Analysis</tspan>
+  </text>
+</svg>

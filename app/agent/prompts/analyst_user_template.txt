@@ -1,0 +1,1 @@
+Analyze the evidence packet and return strict JSON outputs for hypotheses, assumptions, and research plan.

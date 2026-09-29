@@ -1,0 +1,20 @@
+{
+  "status": "COMPLETED",
+  "final_verdict": "WATCHLIST_ONLY",
+  "selected_ticker": null,
+  "confidence": "MEDIUM",
+  "tool_calls": [
+    {
+      "tool": "fixture_companyfacts_lookup",
+      "evidence_ref_ids": [
+        "fixture-evidence-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "fixture-evidence-1",
+      "source_type": "committed_fixture"
+    }
+  ]
+}

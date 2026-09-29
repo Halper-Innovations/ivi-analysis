@@ -19,7 +19,7 @@ The web UI is optional and needs Node 20+: `make webui`.
 ## Tests
 
 `make test` is the hermetic lane that CI runs. It never touches the network,
-your local `data/` directory, or child processes — the test harness blocks all
+your local `data/` directory, or child processes. The test harness blocks all
 three and fails the test that tries. Keep it that way:
 
 - Use committed fixtures under `tests/fixtures/` instead of live SEC calls.

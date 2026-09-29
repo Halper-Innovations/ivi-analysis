@@ -6,52 +6,26 @@
 </p>
 
 <p align="center">
-  <b>Equity research on SEC filings: point-in-time fundamentals, deterministic valuation, and optional AI analyst memos.</b><br>
-  Local-first. Free data by default. Every number traceable to the filing it came from.
-</p>
-
-<p align="center">
   <a href="https://github.com/Halper-Innovations/ivi-analysis/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Halper-Innovations/ivi-analysis/actions/workflows/ci.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-0E6B5C"></a>
   <img alt="Python 3.11+" src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white">
   <img alt="Data: SEC EDGAR" src="https://img.shields.io/badge/data-SEC%20EDGAR-0B1F3A">
   <a href="docs/mcp.md"><img alt="MCP server" src="https://img.shields.io/badge/MCP-server-5EEAD4"></a>
-  <a href="https://github.com/astral-sh/ruff"><img alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"></a>
 </p>
 
----
+IVI Analysis values public companies using the financial statements they file with the SEC. It
+downloads a company's XBRL data from EDGAR, cleans it up into annual and quarterly line items, and
+runs several standard valuation methods on it: a discounted cash flow model, earnings power value,
+the Graham number, free cash flow yield, EV/EBIT, net current asset value and a tangible book floor.
 
-IVI Analysis reads what companies file with the SEC, turns it into clean, dated financial
-statements, and values the company with transparent, deterministic methods — discounted cash
-flow, earnings power, the Graham number, free-cash-flow yield, EV/EBIT, net current assets and a
-tangible floor. When you want more, an AI analyst layer can read the filings and write a memo,
-but the math never depends on it.
+Everything runs locally and is stored in SQLite. You don't need any paid data. Financials come from
+the SEC for free and prices come from Yahoo Finance. If you add an Anthropic or OpenAI key, there is
+also an optional research layer that reads filings and writes an analyst memo, but the valuation
+numbers never depend on it.
 
-It runs on your machine, stores everything in SQLite, and needs no paid data: fundamentals come
-free from SEC EDGAR, prices free from Yahoo Finance.
+## Getting started
 
-## Highlights
-
-- **Point-in-time fundamentals.** Ask for any company's numbers *as they were filed on a past
-  date*. Restatements filed later never leak into a historical view — the property every honest
-  backtest needs.
-- **Filing-grade data hygiene.** Restated figures win by filing date, not by the order SEC's data
-  happens to list them. Cover-page share counts filed 1,000× off are caught by cross-checking the
-  same filing's balance sheet, diluted count and net-income-per-share. Debt totals must reconcile
-  to the balance sheet or they're marked unknown.
-- **Deterministic valuation.** Seven methods, each with its inputs, assumptions and status stored
-  beside the number. One-off swings in cash flow are smoothed both ways; genuine declines are not.
-- **Fails loud, never quiet.** When a value can't be established from the filings, you get an
-  explicit `UNKNOWN` with a reason code — never a silent fallback or a made-up zero.
-- **SEC MCP server.** `ivi-mcp` gives Claude Desktop, Claude Code or any MCP client direct,
-  cited access to company lookups, filings, filing text and financials. [Docs →](docs/mcp.md)
-- **Web UI.** A local React app for companies, watchlists, coverage and events (`ivi web`).
-- **Optional AI analyst.** With an Anthropic or OpenAI key, research runs read filings, adjudicate
-  evidence and write analyst memos with a conviction grade — always as an input, never a gate.
-
-## Quickstart
-
-Requires Python 3.11+.
+You need Python 3.11 or newer.
 
 ```bash
 git clone https://github.com/Halper-Innovations/ivi-analysis.git
@@ -59,14 +33,14 @@ cd ivi-analysis
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e .
 
-# The SEC asks every automated client to identify itself.
+# The SEC asks every automated client to identify itself with a name and email.
 export VOE_SEC_USER_AGENT="Your Name you@yourdomain.com"
 
 ivi value KO
 ```
 
-`ivi value` downloads the company's SEC financial data (about 3–8 MB per company, cached
-locally), runs every valuation method, fetches a free price and prints the result:
+The first run for a company downloads its SEC data (usually 3 to 8 MB) and caches it. Output looks
+like this:
 
 ```text
 KO  as of 2026-09-29  (CIK 0000021344)
@@ -82,107 +56,125 @@ EV/EBIT                          12.45             -598%  OK
 ...
 ```
 
-The engine is deliberately conservative — a 10% hurdle rate and no credit for growth it can't see
-in the filings — so for quality companies the estimates often sit well below the market price.
-That's the point: it tells you what the filings alone support.
+The models are conservative on purpose. They use a 10% discount rate and don't give credit for
+growth that isn't already visible in the filings, so for a lot of well known companies the
+estimates come out well below the share price. Treat them as a floor based on what the company
+has actually reported, not a price target.
+
+## What it does with the data
+
+A few things the data layer handles that raw XBRL doesn't:
+
+- You can ask for a company's numbers as of any past date and get only what had been filed by then.
+  Later restatements don't leak into the historical view, which matters if you backtest anything.
+- When a figure has been restated, the most recently filed value is used.
+- Share counts on filing cover pages are sometimes off by a factor of 1,000. These are checked
+  against other share counts in the same filing (balance sheet, diluted weighted average, and net
+  income divided by EPS) and rejected when they don't agree.
+- Total debt has to be consistent with the balance sheet. If the tagged pieces don't add up, debt
+  is reported as unknown instead of guessed.
+- Banks, insurers and REITs are identified by their SEC industry code and aren't run through
+  methods that don't make sense for them.
+
+When a value can't be worked out from the filings, the output says so and gives a reason code
+rather than filling in a zero.
 
 ## Where the data comes from
 
-| Data | Source | Cost | Needs |
+| Data | Source | Cost | Setting needed |
 |---|---|---|---|
-| Financial statements (XBRL) | SEC EDGAR `data.sec.gov` | Free | `VOE_SEC_USER_AGENT` |
+| Financial statements (XBRL) | SEC EDGAR | Free | `VOE_SEC_USER_AGENT` |
 | Filings and filing text | SEC EDGAR | Free | `VOE_SEC_USER_AGENT` |
-| Stock prices | Yahoo Finance | Free | nothing |
-| Stock prices (optional) | EODHD or Stooq | Paid / keyed | `VOE_EODHD_APIKEY` / `VOE_STOOQ_APIKEY` |
+| Stock prices | Yahoo Finance | Free | none |
+| Stock prices (optional) | EODHD or Stooq | Paid | `VOE_EODHD_APIKEY` or `VOE_STOOQ_APIKEY` |
 | Analyst memos (optional) | Anthropic or OpenAI | Paid | an API key |
 
-Nothing is downloaded up front. Each company is fetched the first time you ask for it and cached
-under `data/`. Covering a handful of companies takes tens of megabytes; sweeping thousands grows
-into gigabytes over time.
+Nothing is downloaded until you ask for a company. A handful of companies takes tens of megabytes.
+If you sweep thousands of companies the cache grows into gigabytes.
 
 ## Configuration
 
-Settings are `VOE_*` environment variables, optionally in a `.env` file (see
-[`.env.example`](.env.example)). The `.env` in the IVI Analysis checkout is read; one in the
-current directory only with `VOE_DOTENV_CWD=1`. Only `VOE_*` names are taken from a `.env`,
-and a file other users can read is skipped with a warning (`chmod 600 .env`). The common ones:
+All settings are environment variables starting with `VOE_`. You can also put them in a `.env`
+file in the repo checkout (see [`.env.example`](.env.example)). Only `VOE_` names are read from
+that file, and it's skipped with a warning if other users on the machine can read it, so run
+`chmod 600 .env`. A `.env` in whatever directory you run the command from is ignored unless you set
+`VOE_DOTENV_CWD=1`.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `VOE_SEC_USER_AGENT` | — (required) | Your name and a monitored email, sent to the SEC. |
-| `VOE_DATA_DIR` | `./data` | Database, caches and reports. |
-| `VOE_PRICE_PROVIDER` | `auto` | `auto` = EODHD if keyed, else Yahoo, then Stooq if keyed. `disabled` turns prices off. |
-| `VOE_NET_PROVIDER` | `enabled` | The single switch for all network access; `disabled` = cache only. |
-| `VOE_LLM_PROVIDER` | `disabled` | `anthropic`, `openai` or `deepseek` to enable the AI analyst layer. |
-| `VOE_ISSUER_CLASSIFICATION_BY_SIC` | `true` | Classify banks/insurers by SEC industry code rather than tag names. |
+| `VOE_SEC_USER_AGENT` | required | Your name and an email address you check. Sent to the SEC. |
+| `VOE_DATA_DIR` | `./data` | Where the database, caches and reports go. |
+| `VOE_PRICE_PROVIDER` | `auto` | `auto` uses EODHD if you have a key, otherwise Yahoo. `disabled` turns prices off. |
+| `VOE_NET_PROVIDER` | `enabled` | Set to `disabled` to work only from the local cache. |
+| `VOE_LLM_PROVIDER` | `disabled` | `anthropic`, `openai` or `deepseek` to turn on the research layer. |
 
-## What you can do
+## Commands
 
 | Command | What it does |
 |---|---|
-| `ivi value TICKER` | Fetch, normalize and value one company from free data. |
-| `ivi web` | Serve the local web UI at http://127.0.0.1:8321 (build it first: `make webui`). |
-| `ivi analyze TICKER` | Full research pipeline for a company (filings, evidence, conviction). |
-| `ivi watchlist ...` | Maintain a persistent watchlist with buy targets and triggers. |
-| `ivi events ...` | Detect corporate events (spin-offs, bankruptcies, busted IPOs) from filings. |
-| `ivi universe ...` | Build and sweep a universe of SEC registrants. |
-| `ivi-mcp` | Run the SEC MCP server ([setup](docs/mcp.md)). |
+| `ivi value TICKER` | Download, clean and value one company. |
+| `ivi web` | Start the local web UI at http://127.0.0.1:8321. Run `make webui` once first to build it. |
+| `ivi analyze TICKER` | Run the full research pipeline on a company. |
+| `ivi watchlist ...` | Keep a watchlist with buy targets and price triggers. |
+| `ivi events ...` | Look for corporate events in filings (spin-offs, bankruptcies, broken IPOs). |
+| `ivi universe ...` | Build and scan a list of SEC registrants. |
+| `ivi-mcp` | Start the MCP server (see below). |
 
-Run `ivi --help` for the full list.
+`ivi --help` lists everything.
 
 ## MCP server
+
+There's also an MCP server, so Claude Desktop, Claude Code or another MCP client can look things up
+in EDGAR directly.
 
 ```bash
 pip install -e '.[mcp]'
 claude mcp add ivi-analysis --env VOE_SEC_USER_AGENT="Your Name you@yourdomain.com" -- ivi-mcp
 ```
 
-Then ask your assistant things like *"What did Coca-Cola report as 2018 revenue in its original
-10-K, and what does it say today?"* Six read-only tools cover company lookup, profiles, filing
-lists, filing text with section jumps, standardized financials (annual or quarterly, optionally
-as of a past date), and any raw XBRL concept. See [docs/mcp.md](docs/mcp.md).
+It has six read-only tools: company lookup, company profile, filing lists, filing text, financial
+statements (annual or quarterly, optionally as of a past date) and raw XBRL concepts. You can ask
+something like "What revenue did Coca-Cola report for 2018 in its original 10-K, and what does it
+show now?" Setup for other clients is in [docs/mcp.md](docs/mcp.md).
 
-## How it's built
+## Project layout
 
 ```
 app/
-  ingest/      SEC submissions, filings and XBRL companyfacts → normalized, dated line items
-  market/      prices, share counts, company-facts extraction and the share-count guard
-  valuation/   DCF, EPV, Graham, multiples, net debt, normalization and quality modules
-  research/    evidence gathering and research runs        analyst/  synthesis/  llm/
-  watchlist/   persistent watchlist, triggers, margin of safety
-  events/      corporate-event detection from filings
-  universe/    registrant census, scouting and sweeps
-  web/         FastAPI read model serving the React UI in webui/
-  mcp_server/  the SEC MCP server
+  ingest/      SEC submissions, filings and XBRL company facts
+  market/      prices, share counts and company facts extraction
+  valuation/   DCF, EPV, Graham, multiples, net debt and the normalization modules
+  research/    evidence gathering and research runs (also analyst/, synthesis/, llm/)
+  watchlist/   watchlist, triggers and margin of safety
+  events/      corporate event detection
+  universe/    registrant lists, scouting and sweeps
+  web/         FastAPI backend for the React UI in webui/
+  mcp_server/  the MCP server
 ```
 
 ## Development
 
 ```bash
 pip install -e '.[dev]'
-make test        # hermetic: no network, no local data, no subprocesses
+make test     # no network access, no local data
 make lint
-make webui       # build the React UI (Node 20+)
+make webui    # builds the React UI, needs Node 20+
 ```
 
-The test suite (6,000+ tests) is hermetic by design — the harness blocks network access and your
-local `data/` directory, so tests can't pass by accident against live data. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+The tests block network access and the local `data/` directory, so they can't pass by accidentally
+reading real data. More in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Limitations
 
-- US SEC filers only; foreign filers reporting in other currencies are partially supported.
-- Banks and insurers are recognized and routed away from methods that don't apply to them.
-- Free prices are for the current day; historical price lookups need an EODHD key.
-- SEC data is exactly what companies filed, including their mistakes. The guards catch many
-  errors, not all.
-- A reproduction-value method is not implemented yet.
+- Only SEC filers are supported. Foreign filers that report in other currencies only partly work.
+- Free prices are current prices. For historical prices you need an EODHD key.
+- The data is whatever companies filed, mistakes included. The checks catch a lot of errors but
+  not all of them.
+- There's no reproduction value method yet.
 
 ## Disclaimer
 
-IVI Analysis is research software. Nothing it produces is investment advice, and its estimates
-can be wrong. Do your own work before making any investment decision.
+This is research software. Nothing it outputs is investment advice and the estimates can be wrong.
 
 ## License
 

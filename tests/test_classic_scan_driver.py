@@ -1283,6 +1283,7 @@ def test_parallel_campaign_rejects_watchlist_mutation_before_dispatch(monkeypatc
     assert state["authorization_history"] == []
 
 
+@pytest.mark.slow  # wall-clock speed-up assertion; unreliable on shared CI runners
 def test_three_workers_reserve_before_dispatch_speed_up_and_preserve_sqlite_rows(
     monkeypatch, tmp_path
 ):

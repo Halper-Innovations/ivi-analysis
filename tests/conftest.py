@@ -12,6 +12,11 @@ from typing import Any, Iterator
 
 import pytest
 
+# CI runners (GITHUB_ACTIONS, FORCE_COLOR) make Typer force a colour terminal, which
+# splits the CLI text tests assert on with ANSI codes. Tests read plain output.
+os.environ["_TYPER_FORCE_DISABLE_TERMINAL"] = "1"
+os.environ.pop("FORCE_COLOR", None)
+
 
 class HermeticityViolation(RuntimeError):
     """Raised before a test can cross a protected I/O boundary."""

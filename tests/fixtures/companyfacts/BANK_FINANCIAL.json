@@ -1,0 +1,47 @@
+{
+  "cik": "0000019617",
+  "entityName": "Test Bank Holding Corp",
+  "facts": {
+    "us-gaap": {
+      "Deposits": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 1000000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000019617-26-000001"
+            }
+          ]
+        }
+      },
+      "Loans": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 800000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000019617-26-000001"
+            }
+          ]
+        }
+      },
+      "CashAndCashEquivalentsAtCarryingValue": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 200000000.0,
+              "filed": "2026-01-20",
+              "form": "10-K",
+              "accn": "0000019617-26-000001"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

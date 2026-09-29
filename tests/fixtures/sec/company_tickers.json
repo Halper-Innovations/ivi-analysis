@@ -1,0 +1,37 @@
+{
+ "0": {
+  "cik_str": 21344,
+  "ticker": "KO",
+  "title": "COCA COLA CO"
+ },
+ "1": {
+  "cik_str": 999999,
+  "ticker": "ACME",
+  "title": "ACME WIDGETS INC"
+ },
+ "2": {
+  "cik_str": 1067983,
+  "ticker": "BRK-B",
+  "title": "BERKSHIRE HATHAWAY INC"
+ },
+ "3": {
+  "cik_str": 1067983,
+  "ticker": "BRK-A",
+  "title": "BERKSHIRE HATHAWAY INC"
+ },
+ "4": {
+  "cik_str": 317540,
+  "ticker": "COKE",
+  "title": "Coca-Cola Consolidated, Inc."
+ },
+ "5": {
+  "cik_str": 777777,
+  "ticker": "ACMR",
+  "title": "ACME ROCKETS CORP"
+ },
+ "6": {
+  "cik_str": 555555,
+  "ticker": "JOES",
+  "title": "JOES JEANS INC."
+ }
+}

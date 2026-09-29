@@ -1,0 +1,21 @@
+{
+  "cik": "0000000101",
+  "entityName": "NET DEBT DEBT ONLY INC",
+  "facts": {
+    "us-gaap": {
+      "LongTermDebt": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 150000000.0,
+              "filed": "2026-01-22",
+              "form": "10-K",
+              "accn": "0000000101-26-000002"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

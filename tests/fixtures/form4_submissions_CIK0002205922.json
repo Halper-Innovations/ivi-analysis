@@ -1,0 +1,35 @@
+{
+  "cik": "2205922",
+  "name": "FIXTURE NETDISABLED CO",
+  "tickers": ["Y"],
+  "filings": {
+    "recent": {
+      "accessionNumber": [
+        "0001062993-24-029266",
+        "0001062993-24-029265",
+        "0001062993-23-005000"
+      ],
+      "filingDate": [
+        "2024-11-18",
+        "2024-10-15",
+        "2023-05-01"
+      ],
+      "reportDate": [
+        "2024-11-15",
+        "2024-10-13",
+        "2023-04-29"
+      ],
+      "form": [
+        "4",
+        "4",
+        "4"
+      ],
+      "primaryDocument": [
+        "form4.xml",
+        "form4.xml",
+        "form4.xml"
+      ]
+    },
+    "files": []
+  }
+}

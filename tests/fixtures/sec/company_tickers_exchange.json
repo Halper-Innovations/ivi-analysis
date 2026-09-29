@@ -1,0 +1,40 @@
+{
+ "fields": [
+  "cik",
+  "name",
+  "ticker",
+  "exchange"
+ ],
+ "data": [
+  [
+   21344,
+   "COCA COLA CO",
+   "KO",
+   "NYSE"
+  ],
+  [
+   999999,
+   "ACME WIDGETS INC",
+   "ACME",
+   "Nasdaq"
+  ],
+  [
+   1067983,
+   "BERKSHIRE HATHAWAY INC",
+   "BRK-B",
+   "NYSE"
+  ],
+  [
+   1067983,
+   "BERKSHIRE HATHAWAY INC",
+   "BRK-A",
+   "NYSE"
+  ],
+  [
+   317540,
+   "Coca-Cola Consolidated, Inc.",
+   "COKE",
+   "Nasdaq"
+  ]
+ ]
+}

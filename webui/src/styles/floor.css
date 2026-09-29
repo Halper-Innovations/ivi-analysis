@@ -1,0 +1,179 @@
+/* ------------------------------------------------------------ the floor --
+   Phase 1 surfaces: table frost tints (flat — never per-row backdrop blur
+   in long tables), the digest reader, and the board columns. */
+
+/* Flat frost tint for table rows: staleness desaturates and dims the row
+   without GPU-heavy filters. Levels mirror gauge.ts frostLevel. */
+.row-frost-0 { }
+.row-frost-1 { opacity: 0.92; }
+.row-frost-2 { opacity: 0.78; }
+.row-frost-2 .font-data { color: color-mix(in oklab, currentColor 70%, var(--color-slate-mist)); }
+.row-frost-3 { opacity: 0.62; }
+.row-frost-3 td:first-child { text-decoration-color: var(--color-rose); }
+.row-frost-1:hover, .row-frost-2:hover, .row-frost-3:hover { opacity: 1; }
+
+/* At the row's 78% opacity, moonlight still holds 7.16:1 against the
+   light panel token; mixing toward gray did not. */
+:root[data-theme="light"] .row-frost-2 .font-data {
+  color: var(--color-moonlight);
+}
+
+/* ------------------------------------------------------------- reader --
+   Server-rendered digest/report markdown. Mono-set tables, quiet rules. */
+.reader { color: var(--color-moonlight); font-size: 0.875rem; line-height: 1.65; }
+.reader h1 { font-family: var(--font-display); font-size: 1.6rem; margin: 0 0 0.75rem; font-weight: 400; }
+.reader h2 { font-family: var(--font-display); font-size: 1.2rem; margin: 1.5rem 0 0.5rem; font-weight: 400; color: var(--color-moonlight); }
+.reader h3 { font-size: 0.95rem; margin: 1.1rem 0 0.4rem; }
+.reader p, .reader li { color: var(--color-sounding); }
+.reader strong { color: var(--color-moonlight); font-weight: 600; }
+.reader ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+.reader table { border-collapse: collapse; width: 100%; margin: 0.6rem 0 1rem; display: block; overflow-x: auto; }
+.reader th, .reader td {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.72rem;
+  padding: 0.3rem 0.7rem 0.3rem 0;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(148, 197, 255, 0.08);
+  color: var(--color-sounding);
+}
+.reader th { color: var(--color-moonlight); font-weight: 500; }
+.reader code { font-family: var(--font-data); color: var(--color-glass-tint); font-size: 0.8em; }
+.reader a { color: var(--color-jade); }
+
+:root[data-theme="light"] .reader th,
+:root[data-theme="light"] .reader td {
+  border-bottom-color: color-mix(in srgb, var(--color-glass-tint) 22%, transparent);
+}
+
+/* ---------------------------------------------------- waterline strip --
+   Today's hero: the cross-section of the water around the buy line.
+   Above the line the water is lit (you are looking toward the surface);
+   below it the zone glows jade and falls to depth. Markers descend on
+   load — a sounding being taken. */
+
+.strip-above {
+  background: linear-gradient(
+    180deg,
+    rgba(148, 197, 255, 0.14),
+    rgba(148, 197, 255, 0.035) 70%,
+    rgba(45, 212, 167, 0.05) 100%
+  );
+}
+
+.strip-below {
+  background: linear-gradient(
+    180deg,
+    rgba(45, 212, 167, 0.16),
+    rgba(45, 212, 167, 0.05) 34%,
+    rgba(6, 11, 22, 0.42) 100%
+  );
+}
+
+.strip-line {
+  border-top: 1.5px dashed rgba(45, 212, 167, 0.8);
+  filter: drop-shadow(0 0 6px rgba(45, 212, 167, 0.35));
+}
+
+/* Opaque token mixes keep both light-theme marker inks AA at every stop:
+   sounding bottoms out at 4.92:1; moonlight at 11.70:1. */
+:root[data-theme="light"] .strip-above {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-glass-tint) 14%, var(--color-deepwater)),
+    color-mix(in srgb, var(--color-glass-tint) 4%, var(--color-deepwater)) 70%,
+    color-mix(in srgb, var(--color-jade) 4%, var(--color-deepwater)) 100%
+  );
+}
+
+:root[data-theme="light"] .strip-below {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-jade) 14%, var(--color-deepwater)),
+    color-mix(in srgb, var(--color-jade) 5%, var(--color-deepwater)) 34%,
+    var(--color-deepwater) 100%
+  );
+}
+
+:root[data-theme="light"] .strip-line {
+  border-top-color: color-mix(in srgb, var(--color-jade) 85%, transparent);
+  filter: drop-shadow(
+    0 0 6px color-mix(in srgb, var(--color-jade) 35%, transparent)
+  );
+}
+
+:root[data-theme="light"] .strip-line > span {
+  color: var(--nacre-ink);
+}
+
+:root[data-theme="light"] .strip-marker:hover .strip-marker-ticker {
+  color: var(--nacre-ink);
+}
+
+/* Preserve the stale cue without fading the smallest ink below AA. */
+:root[data-theme="light"] .strip-marker.opacity-55 {
+  opacity: 0.72;
+}
+
+:root[data-theme="light"] .strip-marker.opacity-55 .strip-marker-detail {
+  color: var(--color-moonlight);
+}
+
+:root[data-theme="light"] .strip-marker.opacity-55 .strip-marker-ticker {
+  background: none;
+  color: var(--color-moonlight);
+}
+
+.strip-marker {
+  animation: sounding-descend 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--descend-i, 0) * 45ms + 180ms);
+}
+
+@keyframes sounding-descend {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The marker link is a zero-size anchor; its first child is the visible dot. */
+.strip-marker:focus-visible {
+  outline: none;
+}
+.strip-marker:focus-visible > .strip-marker-dot {
+  outline: 3px solid var(--nacre-ink);
+  outline-offset: 3px;
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip-marker {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------- board columns -- */
+.board-scroll { scrollbar-width: thin; scrollbar-color: rgba(148, 197, 255, 0.25) transparent; }
+
+:root[data-theme="light"] .board-scroll {
+  scrollbar-color: color-mix(in srgb, var(--color-glass-tint) 38%, transparent) transparent;
+}
+
+/* Sticky table header over glass — tinted like the panel, not a black bar. */
+.floor-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(10, 21, 37, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+:root[data-theme="light"] .floor-table thead th {
+  background: var(--color-deepwater);
+}

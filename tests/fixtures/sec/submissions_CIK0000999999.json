@@ -1,0 +1,118 @@
+{
+ "cik": "0000999999",
+ "entityType": "operating",
+ "sic": "3559",
+ "sicDescription": "Special Industry Machinery, NEC",
+ "name": "ACME WIDGETS INC",
+ "tickers": [
+  "ACME"
+ ],
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "ein": "123456789",
+ "description": "",
+ "website": "",
+ "category": "Non-accelerated filer",
+ "fiscalYearEnd": "1231",
+ "stateOfIncorporation": "DE",
+ "addresses": {
+  "mailing": {
+   "street1": "PO BOX 1",
+   "street2": null,
+   "city": "SPRINGFIELD",
+   "stateOrCountry": "IL",
+   "zipCode": "62701"
+  },
+  "business": {
+   "street1": "1 MAIN ST",
+   "street2": null,
+   "city": "SPRINGFIELD",
+   "stateOrCountry": "IL",
+   "zipCode": "62701"
+  }
+ },
+ "phone": "555-0100",
+ "formerNames": [
+  {
+   "name": "ACME GADGETS INC",
+   "from": "2001-01-01T00:00:00.000Z",
+   "to": "2015-06-30T00:00:00.000Z"
+  }
+ ],
+ "filings": {
+  "recent": {
+   "accessionNumber": [
+    "0000999999-25-000030",
+    "0000999999-25-000020",
+    "0000999999-25-000010",
+    "0000999999-24-000020",
+    "0000999999-24-000010",
+    "0000999999-23-000020",
+    "0000999999-23-000010"
+   ],
+   "filingDate": [
+    "2025-05-01",
+    "2025-05-01",
+    "2025-02-14",
+    "2024-05-01",
+    "2024-02-15",
+    "2023-05-01",
+    "2023-02-15"
+   ],
+   "reportDate": [
+    "2025-05-01",
+    "2025-03-31",
+    "2024-12-31",
+    "2024-03-31",
+    "2023-12-31",
+    "2023-03-31",
+    "2022-12-31"
+   ],
+   "form": [
+    "8-K",
+    "10-Q",
+    "10-K",
+    "10-Q",
+    "10-K",
+    "10-Q",
+    "10-K"
+   ],
+   "primaryDocument": [
+    "acme-8k_20250501.htm",
+    "acme-20250331.htm",
+    "acme-20241231.htm",
+    "acme-20240331.htm",
+    "acme-20231231.htm",
+    "acme-20230331.htm",
+    "acme-20221231.htm"
+   ],
+   "primaryDocDescription": [
+    "8-K",
+    "10-Q",
+    "10-K",
+    "10-Q",
+    "10-K",
+    "10-Q",
+    "10-K"
+   ],
+   "items": [
+    "2.02,9.01",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  "files": [
+   {
+    "name": "CIK0000999999-submissions-001.json",
+    "filingCount": 2,
+    "filingFrom": "2012-06-01",
+    "filingTo": "2019-02-20"
+   }
+  ]
+ }
+}

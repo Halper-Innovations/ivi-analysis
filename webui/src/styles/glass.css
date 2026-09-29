@@ -1,0 +1,307 @@
+/* ------------------------------------------------------------ glass kit --
+   Three elevation tiers (rail → card → overlay) sharing one recipe:
+   tinted translucency, backdrop blur, a specular top edge, an inner
+   top-light (the surface is above), and a 2% noise tooth. The ocean behind
+   gives the blur something real to refract. */
+
+.glass,
+.glass-rail,
+.glass-overlay {
+  position: relative;
+  background-color: var(--glass-fill);
+  background-image: linear-gradient(
+    180deg,
+    rgba(148, 197, 255, 0.07),
+    rgba(148, 197, 255, 0) 42%
+  );
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 16px 24px rgba(0, 0, 0, 0.21),
+    var(--specular);
+  border-radius: 8px;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid var(--glass-border);
+}
+
+.glass-rail {
+  border-radius: 0;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  background-color: rgba(8, 17, 30, 0.34);
+  box-shadow: var(--specular);
+}
+
+.glass-overlay {
+  background-color: rgba(9, 19, 34, 0.8);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.65),
+    var(--specular);
+}
+
+/* Surface theme: white glass over sunlit shallows; shadows go blue-gray
+   and soft (black at 0.42 reads as smoke on a light page). */
+:root[data-theme="light"] .glass,
+:root[data-theme="light"] .glass-rail,
+:root[data-theme="light"] .glass-overlay {
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0) 42%
+  );
+  box-shadow:
+    0 12px 18px rgba(30, 58, 95, 0.08),
+    var(--specular);
+}
+
+:root[data-theme="light"] .glass-rail {
+  background-color: rgba(255, 255, 255, 0.38);
+  box-shadow: var(--specular);
+}
+
+:root[data-theme="light"] .glass-overlay {
+  background-color: rgba(244, 249, 255, 0.88);
+  box-shadow:
+    0 24px 64px rgba(30, 58, 95, 0.28),
+    var(--specular);
+}
+
+/* 2% noise tooth on every glass surface. */
+.glass::after,
+.glass-rail::after,
+.glass-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* -------------------------------------------------------------- ocean --
+   The world the glass lives in. Light is directional — the surface is
+   above — so the page is a water column: brighter, warmer blue near the
+   top fading to abyss, a surface glow, caustic dapple just under the
+   surface, and two layers of god rays angling down. The rays are the one
+   ambient motion (a slow drift); paused under reduced motion.
+
+   Layer order (all fixed, behind content):
+     .ocean          — water column + surface glow, dapple in ::before
+     .ocean-rays     — two ray layers (::before / ::after)              */
+
+.ocean {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 30% at 62% -10%, rgba(214, 228, 248, 0.5), transparent 70%),
+    radial-gradient(140% 90% at 50% -34%, rgba(148, 197, 255, 0.38), transparent 64%),
+    radial-gradient(120% 60% at 50% 108%, rgba(2, 5, 10, 0.85), transparent 60%),
+    linear-gradient(180deg, #2a4a6e 0%, #16304e 26%, #0a1930 56%, #060b16 100%);
+}
+
+/* Caustic dapple: turbulence tile, visible only in the top of the column —
+   the light pattern on the underside of the surface. */
+.ocean::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 44vh;
+  opacity: 0.26;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.011 0.02' numOctaves='2' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.72 0 0 0 0 0.84 0 0 0 0 1 0 0 0 0.85 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='gamma' amplitude='1' exponent='4.2' offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='340' height='340' filter='url(%23c)'/%3E%3C/svg%3E");
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 92%);
+}
+
+.ocean-rays {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ocean-rays::before,
+.ocean-rays::after {
+  content: "";
+  position: absolute;
+  inset: -22% -14%;
+  will-change: transform;
+}
+
+/* Wide, soft primary rays. */
+.ocean-rays::before {
+  background: repeating-linear-gradient(
+    104deg,
+    transparent 0px,
+    transparent 120px,
+    rgba(148, 197, 255, 0.1) 190px,
+    rgba(200, 216, 240, 0.17) 235px,
+    rgba(148, 197, 255, 0.1) 280px,
+    transparent 350px,
+    transparent 520px
+  );
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.3) 48%, transparent 78%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.3) 48%, transparent 78%);
+  animation: rays-drift 90s ease-in-out infinite alternate;
+}
+
+/* Narrow, dimmer counter-rays at a slightly different pitch. */
+.ocean-rays::after {
+  background: repeating-linear-gradient(
+    99deg,
+    transparent 0px,
+    transparent 260px,
+    rgba(183, 201, 232, 0.12) 320px,
+    transparent 380px,
+    transparent 760px
+  );
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 40%, transparent 66%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 40%, transparent 66%);
+  animation: rays-drift 140s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes rays-drift {
+  from {
+    transform: translate3d(-1.8%, 0, 0);
+  }
+  to {
+    transform: translate3d(1.8%, 0, 0);
+  }
+}
+
+/* Surface theme: the viewpoint flips above the waterline — bright sky at
+   the top, water deepening below; the rays become white sun shafts. */
+:root[data-theme="light"] .ocean {
+  background:
+    radial-gradient(46% 30% at 62% -10%, rgba(255, 255, 255, 0.95), transparent 70%),
+    radial-gradient(140% 90% at 50% -34%, rgba(255, 255, 255, 0.6), transparent 64%),
+    radial-gradient(120% 60% at 50% 108%, rgba(53, 101, 159, 0.4), transparent 60%),
+    linear-gradient(180deg, #f4f9ff 0%, #ddebfa 30%, #c2d8ef 64%, #a7c3e2 100%);
+}
+
+:root[data-theme="light"] .ocean::before {
+  opacity: 0.32;
+}
+
+:root[data-theme="light"] .ocean-rays::before {
+  background: repeating-linear-gradient(
+    104deg,
+    transparent 0px,
+    transparent 120px,
+    rgba(255, 255, 255, 0.28) 190px,
+    rgba(255, 255, 255, 0.45) 235px,
+    rgba(255, 255, 255, 0.28) 280px,
+    transparent 350px,
+    transparent 520px
+  );
+}
+
+:root[data-theme="light"] .ocean-rays::after {
+  background: repeating-linear-gradient(
+    99deg,
+    transparent 0px,
+    transparent 260px,
+    rgba(255, 255, 255, 0.3) 320px,
+    transparent 380px,
+    transparent 760px
+  );
+}
+
+/* ------------------------------------------------------------- frost --
+   Staleness is rendered, not footnoted: as the underlying data ages the
+   glass fogs — blur rises, saturation drops, crystalline noise grows.
+   Levels map to the platform's freshness contract (see gauge.ts).
+   Hover defrosts temporarily so exact ages stay reachable. */
+
+.frost-0 { --frost-blur: 0px; --frost-noise: 0; --frost-sat: 1; }
+.frost-1 { --frost-blur: 0.6px; --frost-noise: 0.05; --frost-sat: 0.82; }
+.frost-2 { --frost-blur: 1.4px; --frost-noise: 0.11; --frost-sat: 0.6; }
+.frost-3 { --frost-blur: 2.4px; --frost-noise: 0.2; --frost-sat: 0.35; }
+
+.frosted > .frost-content {
+  filter: blur(var(--frost-blur, 0px)) saturate(var(--frost-sat, 1));
+  transition: filter 360ms ease;
+}
+
+.frosted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--frost-noise, 0);
+  transition: opacity 360ms ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.16' numOctaves='3'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.85 0 0 0 0 0.92 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+
+/* Tiny surfaces (micro gauges) keep the fog but skip the noise overlay —
+   at 64px the crystal texture reads as a broken image. */
+.frost-quiet::before {
+  display: none;
+}
+
+.frosted:hover > .frost-content,
+.frosted:focus-within > .frost-content {
+  filter: blur(0px) saturate(1);
+}
+.frosted:hover::before,
+.frosted:focus-within::before {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------- load motion --
+   Panels condense in: blur(30px) → 0 with an 8px rise, 40ms stagger via
+   --condense-i, ~500ms total. */
+
+.condense {
+  --condense-i: 0;
+  animation: condense-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--condense-i) * 40ms);
+}
+
+@keyframes condense-in {
+  from {
+    opacity: 0;
+    filter: blur(30px);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------- reduced motion --
+   Everything above collapses to instant states. The gauge's draw-in and
+   ripple (gauge.css) obey the same media query. */
+
+@media (prefers-reduced-motion: reduce) {
+  .ocean-rays::before,
+  .ocean-rays::after {
+    animation: none;
+  }
+  .condense {
+    animation: none;
+  }
+  .frosted > .frost-content,
+  .frosted::before {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}

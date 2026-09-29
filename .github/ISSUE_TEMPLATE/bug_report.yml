@@ -1,0 +1,27 @@
+name: Bug report
+description: Something crashed or behaved differently than documented.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The command you ran, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: Relevant output or traceback. Remove API keys and your SEC contact email first.
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `pip show ivi-analysis | grep Version`, or the commit you are on.
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 15 / Python 3.12

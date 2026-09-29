@@ -1,0 +1,52 @@
+{
+ "_fixture": "Trimmed excerpt of the public SEC companyfacts payload for CIK 0002096997 (Kailera Therapeutics, Inc.), retrieved 2026-07-23T12:06:53.383233+00:00 from https://data.sec.gov/api/xbrl/companyfacts/CIK0002096997.json. Kept verbatim: every row of the three share tags; the diluted weighted-average count, temporary-equity shares, net income (NetIncomeLoss, ProfitLoss) and EPS (diluted, basic-and-diluted, basic) rows only from filings that also carry a kept share-tag row (the only rows the guard can consult). Everything else dropped.",
+ "cik": "0002096997",
+ "entityName": "Kailera Therapeutics, Inc.",
+ "facts": {
+  "dei": {
+   "EntityCommonStockSharesOutstanding": {"units": {
+    "shares": [
+     {"end":"2026-05-20","val":129565608,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q2I"}
+    ]
+   }}
+  },
+  "us-gaap": {
+   "CommonStockSharesOutstanding": {"units": {
+    "shares": [
+     {"end":"2025-12-31","val":19048,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q4I"},
+     {"end":"2026-03-31","val":29953,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1I"}
+    ]
+   }},
+   "WeightedAverageNumberOfDilutedSharesOutstanding": {"units": {
+    "shares": [
+     {"start":"2025-01-01","end":"2025-03-31","val":1,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q1"},
+     {"start":"2026-01-01","end":"2026-03-31","val":21607,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1"}
+    ]
+   }},
+   "TemporaryEquitySharesOutstanding": {"units": {
+    "shares": [
+     {"end":"2025-12-31","val":78762142,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q4I"},
+     {"end":"2026-03-31","val":78762142,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1I"}
+    ]
+   }},
+   "NetIncomeLoss": {"units": {
+    "USD": [
+     {"start":"2025-01-01","end":"2025-03-31","val":-17983000,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q1"},
+     {"start":"2026-01-01","end":"2026-03-31","val":-78865000,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1"}
+    ]
+   }},
+   "EarningsPerShareDiluted": {"units": {
+    "USD/shares": [
+     {"start":"2025-01-01","end":"2025-03-31","val":-17983,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q1"},
+     {"start":"2026-01-01","end":"2026-03-31","val":-3650,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1"}
+    ]
+   }},
+   "EarningsPerShareBasic": {"units": {
+    "USD/shares": [
+     {"start":"2025-01-01","end":"2025-03-31","val":-17983,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2025Q1"},
+     {"start":"2026-01-01","end":"2026-03-31","val":-3650,"accn":"0001193125-26-239417","fy":2026,"fp":"Q1","form":"10-Q","filed":"2026-05-26","frame":"CY2026Q1"}
+    ]
+   }}
+  }
+ }
+}

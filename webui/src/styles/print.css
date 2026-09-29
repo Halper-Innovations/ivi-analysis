@@ -1,0 +1,124 @@
+/*
+ * Print — production-grade paper output for the Reader. The abyss, the glass,
+ * the rail, and every interactive control disappear; the artifact becomes
+ * a clean black-on-white document an outside investor could hold.
+ */
+
+@page {
+  margin: 12mm 12mm;
+}
+
+@media print {
+  html,
+  body {
+    /* color-scheme drives Chromium's page canvas: without the light flip,
+       the PDF paints a #121212 dark-mode canvas around the sheet. */
+    color-scheme: light !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  /* Chrome that has no business on paper. */
+  .glass-rail,
+  .ocean,
+  .ocean-rays,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  /* The sheet sheds its glass: no blur, no tint, no shadow, no border. */
+  .print-sheet {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    animation: none !important;
+    filter: none !important;
+  }
+
+  /* Reader typography on paper. */
+  .reader,
+  .reader p,
+  .reader li,
+  .reader td,
+  .reader th,
+  .reader strong,
+  .reader h1,
+  .reader h2,
+  .reader h3,
+  .reader h4,
+  .reader code {
+    color: #111111 !important;
+    text-shadow: none !important;
+  }
+
+  .reader {
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  .reader a {
+    color: #111111 !important;
+    text-decoration: underline;
+  }
+
+  .reader h1 {
+    font-size: 20pt;
+    margin-bottom: 10pt;
+  }
+
+  .reader h2 {
+    font-size: 14pt;
+    margin-top: 16pt;
+  }
+
+  .reader h3 {
+    font-size: 11.5pt;
+  }
+
+  .reader h1,
+  .reader h2,
+  .reader h3,
+  .reader h4 {
+    break-after: avoid-page;
+  }
+
+  .reader table {
+    display: table !important;
+    width: 100% !important;
+    overflow: visible !important;
+    break-inside: avoid-page;
+    /* Ten-year standardized tables run 15+ columns; on paper they earn a
+       smaller hand so the last columns survive the page edge. */
+    font-size: 6.5pt;
+  }
+
+  .reader th,
+  .reader td {
+    border: 0.5pt solid #999999 !important;
+    padding: 1.5pt 2.5pt !important;
+    /* The screen keeps nowrap and scrolls; paper cannot scroll. */
+    white-space: normal !important;
+    overflow-wrap: break-word;
+  }
+
+  .reader pre,
+  .reader blockquote {
+    break-inside: avoid-page;
+    background: #f5f5f5 !important;
+    color: #111111 !important;
+    border: 0.5pt solid #cccccc !important;
+  }
+
+  .reader code {
+    background: transparent !important;
+  }
+}

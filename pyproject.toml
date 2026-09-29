@@ -1,0 +1,129 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ivi-analysis"
+version = "0.1.0"
+description = "Local-first equity research on SEC filings: point-in-time fundamentals, deterministic valuation and AI analyst memos."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ryan Halper" }]
+keywords = ["sec", "edgar", "xbrl", "valuation", "dcf", "equity-research", "fundamentals", "llm"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+  "typer>=0.12",
+  "pydantic>=2.7",
+  "requests>=2.32",
+  "fastapi>=0.115",
+  "uvicorn>=0.30",
+  "jinja2>=3.1",
+  "anthropic>=0.42",
+  "python-dotenv>=1.0",
+  "yfinance>=0.2.50",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "httpx>=0.28",
+  "ruff>=0.6",
+  "mypy>=1.11",
+]
+
+[project.urls]
+Homepage = "https://github.com/Halper-Innovations/ivi-analysis"
+Source = "https://github.com/Halper-Innovations/ivi-analysis"
+Issues = "https://github.com/Halper-Innovations/ivi-analysis/issues"
+
+[project.scripts]
+ivi = "app.cli:app"
+voe = "app.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = ["data*", "tests*", "scripts*"]
+
+# Non-Python files the app reads at run time; without these a wheel install
+# is missing its prompts, the event ground truth and the seed universe.
+[tool.setuptools.package-data]
+"app.agent" = ["prompts/*.txt"]
+"app.events" = ["*.csv"]
+"app.report" = ["templates/*"]
+"app.universe" = ["*.csv"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+norecursedirs = ["data"]
+markers = [
+    "eval_gate: mechanical artifact and report-shape eval gates for autonomous research outputs",
+    "sec_live: live SEC acceptance tests that require network access and VOE_RUN_SEC_LIVE_TESTS=1",
+    "slow: intrinsically slow tests kept out of the fast development lane",
+    "network: tests explicitly allowed to access a declared free network dependency",
+    "live_data: read-only audits of a local installation's databases and caches",
+    "live_artifact: read-only audits of local research artifacts under data/outputs",
+    "subprocess: reviewed tests that spawn a child process and therefore run outside the fast lane",
+    "financial_integrity_contract: run with real financial-integrity gates, never legacy PASS shims",
+]
+faulthandler_timeout = 60
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [
+    ".venv",
+    "data",
+    "webui",
+]
+
+[tool.ruff.lint]
+# High-signal rule families only; tighten over time.
+select = ["E9", "F63", "F7", "F82", "F401", "F811", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.flake8-bugbear]
+# Typer/FastAPI use callables as parameter defaults by design (the framework idiom for
+# declaring CLI args/options and request dependencies). Treat them as immutable so B008
+# does not flag the entire CLI/web surface (this also clears pre-existing repo debt).
+extend-immutable-calls = [
+    "typer.Argument",
+    "typer.Option",
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+files = ["app"]
+exclude = "(^|/)(tests|data)/"
+ignore_missing_imports = true
+check_untyped_defs = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+plugins = ["pydantic.mypy"]
+
+# Tighten the math-critical valuation package first.
+[[tool.mypy.overrides]]
+module = "app.valuation.*"
+check_untyped_defs = true
+warn_return_any = true

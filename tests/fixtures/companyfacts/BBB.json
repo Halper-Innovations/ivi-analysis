@@ -1,0 +1,44 @@
+{
+  "cik": "0000000002",
+  "entityName": "BBB Inc",
+  "facts": {
+    "us-gaap": {
+      "CommonStockSharesOutstanding": {
+        "units": {
+          "shares": [
+            {
+              "end": "2025-12-31",
+              "val": 2000,
+              "filed": "2026-01-25",
+              "form": "10-K"
+            }
+          ]
+        }
+      },
+      "NetCashProvidedByUsedInOperatingActivities": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 410.0,
+              "filed": "2026-01-25",
+              "form": "10-K"
+            }
+          ]
+        }
+      },
+      "PaymentsToAcquirePropertyPlantAndEquipment": {
+        "units": {
+          "USD": [
+            {
+              "end": "2025-12-31",
+              "val": 90.0,
+              "filed": "2026-01-25",
+              "form": "10-K"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

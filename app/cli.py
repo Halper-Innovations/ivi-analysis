@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 import json
 import secrets
 import os
@@ -8656,7 +8658,8 @@ def value_cmd(
     Exit code 0: values and a price; 2: values but no price; 1: failed.
     """
     as_of_date = _validated_as_of(as_of)
-    configure_logging()
+    # Interactive command: show warnings and errors only, not the JSON progress log.
+    configure_logging(logging.WARNING)
     from app.valuation.quick_value import render_value_summary, run_value
 
     try:

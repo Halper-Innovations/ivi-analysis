@@ -50,9 +50,9 @@ mcp = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Halper-Innovations/ivi-analysis"
-Source = "https://github.com/Halper-Innovations/ivi-analysis"
-Issues = "https://github.com/Halper-Innovations/ivi-analysis/issues"
+Homepage = "https://github.com/Ryan-Halper/ivi-analysis"
+Source = "https://github.com/Ryan-Halper/ivi-analysis"
+Issues = "https://github.com/Ryan-Halper/ivi-analysis/issues"
 
 [project.scripts]
 ivi = "app.cli:app"

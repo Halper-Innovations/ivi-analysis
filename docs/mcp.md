@@ -16,7 +16,7 @@ view.
 The package is not on PyPI yet, so install from a clone:
 
 ```bash
-git clone https://github.com/Halper-Innovations/ivi-analysis.git
+git clone https://github.com/Ryan-Halper/ivi-analysis.git
 cd ivi-analysis
 pip install -e '.[mcp]'
 ```

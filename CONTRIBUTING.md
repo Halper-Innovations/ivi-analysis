@@ -6,7 +6,7 @@ are all welcome.
 ## Development setup
 
 ```bash
-git clone https://github.com/Halper-Innovations/ivi-analysis.git
+git clone https://github.com/Ryan-Halper/ivi-analysis.git
 cd ivi-analysis
 python3 -m venv .venv
 source .venv/bin/activate

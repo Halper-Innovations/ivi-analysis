@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 Please report security issues privately through GitHub's
-[private vulnerability reporting](https://github.com/Halper-Innovations/ivi-analysis/security/advisories/new)
+[private vulnerability reporting](https://github.com/Ryan-Halper/ivi-analysis/security/advisories/new)
 rather than a public issue. Include steps to reproduce and the version or
 commit you tested. You can expect an acknowledgement within a few days.
 

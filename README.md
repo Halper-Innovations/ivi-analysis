@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Halper-Innovations/ivi-analysis/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Halper-Innovations/ivi-analysis/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/Ryan-Halper/ivi-analysis/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Ryan-Halper/ivi-analysis/actions/workflows/ci.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-0E6B5C"></a>
   <img alt="Python 3.11+" src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white">
   <img alt="Data: SEC EDGAR" src="https://img.shields.io/badge/data-SEC%20EDGAR-0B1F3A">
@@ -28,7 +28,7 @@ numbers never depend on it.
 You need Python 3.11 or newer.
 
 ```bash
-git clone https://github.com/Halper-Innovations/ivi-analysis.git
+git clone https://github.com/Ryan-Halper/ivi-analysis.git
 cd ivi-analysis
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e .
